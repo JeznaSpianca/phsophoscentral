@@ -1,0 +1,284 @@
+{
+    "appid": "e3902181-ceb2-4c10-aacd-9a91f1b1c81b",
+    "name": "Sophos Central",
+    "description": "App for getting events and alerts from Sophos central. To use the central api, you first need to get the tenantID and dataRegion URL from a whoami API call. Detailed information can be found here: https://developer.sophos.com/getting-started-tenant.",
+    "type": "information",
+    "product_vendor": "Sophos",
+    "logo": "sophoscentral.png",
+    "logo_dark": "sophoscentral_dark.png",
+    "product_name": "Central",
+    "python_version": "3",
+    "product_version_regex": ".*",
+    "publisher": "SmartCom",
+    "license": "Copyright (c) SmartCom, 2020",
+    "app_version": "1.0.0",
+    "utctime_updated": "2020-08-20T09:12:17.822792Z",
+    "package_name": "phantom_sophoscentral",
+    "main_module": "sophoscentral_connector.pyc",
+    "min_phantom_version": "4.9.33153",
+    "app_wizard_version": "1.0.0",
+    "configuration": {
+        "baseURL": {
+            "description": "Basic public API url.",
+            "data_type": "string",
+            "required": true,
+            "value_list": [],
+            "default": "",
+            "order": 0
+        },
+        "api_key": {
+            "description": "Api key for public API found in API token management.",
+            "data_type": "string",
+            "required": true,
+            "value_list": [],
+            "default": "",
+            "order": 1
+        },
+        "auth_key": {
+            "description": "Authorization key for public API found in API token management.",
+            "data_type": "string",
+            "required": true,
+            "value_list": [],
+            "default": "",
+            "order": 2
+        },
+        "clientID": {
+            "description": "Client ID found in API credentials.",
+            "data_type": "string",
+            "required": true,
+            "value_list": [],
+            "default": "",
+            "order": 3
+        },
+        "clientSecret": {
+            "description": "Client secret found in API credentials.",
+            "data_type": "string",
+            "required": true,
+            "value_list": [],
+            "default": "",
+            "order": 4
+        },
+        "tenantID": {
+            "description": "Tenant ID found in the whoami API call.",
+            "data_type": "string",
+            "required": true,
+            "value_list": [],
+            "default": "",
+            "order": 5
+        },
+        "centralURL": {
+            "description": "REST API URL, found in the dataRegion field in the whoami API call.",
+            "data_type": "string",
+            "required": true,
+            "value_list": [],
+            "default": "",
+            "order": 6
+        }
+    },
+    "actions": [
+        {
+            "action": "test connectivity",
+            "identifier": "test_connectivity",
+            "description": "Validate the asset configuration for connectivity using supplied configuration",
+            "verbose": "",
+            "type": "test",
+            "read_only": true,
+            "parameters": {},
+            "output": [],
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "getevents",
+            "identifier": "getevents",
+            "description": "Get events from Sophos Central",
+            "verbose": "Get events.",
+            "type": "generic",
+            "read_only": false,
+            "parameters": {
+                "limit": {
+                    "description": "Max number of events to return.",
+                    "data_type": "numeric",
+                    "required": false,
+                    "primary": true,
+                    "contains": [],
+                    "value_list": [],
+                    "default": "",
+                    "order": 0
+                },
+                "from_date": {
+                    "description": "The starting date from which the alerts will be retrieved, must be within last 24 hours.",
+                    "data_type": "numeric",
+                    "required": false,
+                    "primary": true,
+                    "contains": [],
+                    "value_list": [],
+                    "default": "",
+                    "order": 0
+                },
+                "exclude_types": {
+                    "description": "String of types to exclude",
+                    "data_type": "string",
+                    "required": false,
+                    "primary": true,
+                    "contains": [],
+                    "value_list": [],
+                    "default": "",
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.parameter.limit",
+                    "data_type": "string",
+                    "contains": [],
+                    "column_name": "limit",
+                    "column_order": 2
+                },
+                {
+                    "data_path": "action_result.parameter.from_date",
+                    "data_type": "string",
+                    "contains": [],
+                    "column_name": "from_date",
+                    "column_order": 2
+                },
+                {
+                    "data_path": "action_result.parameter.exclude_types",
+                    "data_type": "string",
+                    "contains": [],
+                    "column_name": "exclude_types",
+                    "column_order": 2
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "column_name": "status",
+                    "column_order": 0
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric"
+                }
+            ],
+            "render": {
+                "type": "custom",
+                "width": 20,
+                "height": 10,
+                "view": "event_view.display_events",
+                "title": "Display events"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "list_endpoints",
+            "identifier": "list_endpoints",
+            "description": "List all endpoints in your tenant.",
+            "verbose": "List endpoints.",
+            "type": "generic",
+            "read_only": false,
+            "parameters": {
+            },
+            "output": [
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "column_name": "status",
+                    "column_order": 0
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric"
+                }
+            ],
+            "render": {
+                "type": "table"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "getevents_date",
+            "identifier": "getevents_date",
+            "description": "Get events starting from last saved date. Must be within last 24 hours.",
+            "verbose": "Get events.",
+            "type": "generic",
+            "read_only": false,
+            "parameters": {},
+            "output": [
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "column_name": "status",
+                    "column_order": 0
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric"
+                }
+            ],
+            "render": {
+                "type": "table"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "getalerts",
+            "identifier": "getalerts",
+            "description": "Get alerts from Sophos Central.",
+            "verbose": "Get alerts.",
+            "type": "generic",
+            "read_only": false,
+            "parameters": {},
+            "output": [
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "column_name": "status",
+                    "column_order": 0
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric"
+                }
+            ],
+            "render": {
+                "type": "custom",
+                "width": 20,
+                "height": 10,
+                "view": "alert_view.display_alerts",
+                "title": "Display events"
+            },
+            "versions": "EQ(*)"
+        }
+    ]
+}

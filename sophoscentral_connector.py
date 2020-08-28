@@ -156,7 +156,7 @@ class SophosCentralConnector(BaseConnector):
 
         return self._process_response(r, action_result)
 
-    def _make_rest_call_new(self, endpoint, action_result, method="get", params=None, headers=None):
+    def _make_rest_call_new(self, endpoint, action_result, method="get", params=None, headers=None, data=None, json=None):
         # **kwargs can be any additional parameters that requests.request accepts
 
         resp_json = None
@@ -174,7 +174,7 @@ class SophosCentralConnector(BaseConnector):
 
         try:
             r = request_func(
-                url, headers=headers, params=params
+                url, headers=headers, params=params, data=data, json=json
             )
         except Exception as e:
             return RetVal(
@@ -200,7 +200,6 @@ class SophosCentralConnector(BaseConnector):
 
         if phantom.is_fail(ret_val):
             # the call to the 3rd party device or service failed, action result should contain all the error details
-            # for now the return is commented out, but after implementation, return from here
             self.save_progress("Test Connectivity Failed.")
             return action_result.get_status()
 
@@ -243,15 +242,220 @@ class SophosCentralConnector(BaseConnector):
         # Get API token
         token = self._get_token(param, action_result)
 
+        params = {}
+        if len(param) != 1:
+            for key, value in param.items():
+                if key == 'context':
+                    continue
+                params[key] = value
+        else:
+            params = None
+
         headers = {"X-Tenant-ID": self._tenantID, "Authorization": "Bearer " + token}
         # make rest call
         ret_val, response = self._make_rest_call_new(
-            '/endpoint/v1/endpoints', action_result, headers=headers
+            '/endpoint/v1/endpoints', action_result, headers=headers, params=params
         )
 
         if phantom.is_fail(ret_val):
             # the call to the 3rd party device or service failed, action result should contain all the error details
-            # for now the return is commented out, but after implementation, return from here
+            return action_result.get_status()
+
+        # Add the response into the data section
+        action_result.add_data(response)
+
+        # Add a dictionary that is made up of the most important values from data into the summary
+        summary = action_result.update_summary({})
+        summary['num_data'] = ret_val
+
+        # Return success, no need to set the message, only the status
+        # BaseConnector will create a textual message based off of the summary dictionary
+        return action_result.set_status(phantom.APP_SUCCESS)
+
+    def _handle_describe_alert(self, param):
+        # Implement the handler here
+        # use self.save_progress(...) to send progress messages back to the platform
+        self.save_progress("In action handler for: {0}".format(self.get_action_identifier()))
+
+        # Add an action result object to self (BaseConnector) to represent the action for this param
+        action_result = self.add_action_result(ActionResult(dict(param)))
+
+        # Get API token
+        token = self._get_token(param, action_result)
+
+        path = "/common/v1/alerts/" + param['alert_id']
+        headers = {"X-Tenant-ID": self._tenantID, "Authorization": "Bearer " + token}
+        # make rest call
+        ret_val, response = self._make_rest_call_new(
+            path, action_result, method="get", headers=headers
+        )
+
+        if phantom.is_fail(ret_val):
+            # the call to the 3rd party device or service failed, action result should contain all the error details
+            return action_result.get_status()
+
+        # Add the response into the data section
+        action_result.add_data(response)
+
+        # Add a dictionary that is made up of the most important values from data into the summary
+        summary = action_result.update_summary({})
+        summary['num_data'] = ret_val
+
+        # Return success, no need to set the message, only the status
+        # BaseConnector will create a textual message based off of the summary dictionary
+        return action_result.set_status(phantom.APP_SUCCESS)
+
+    def _handle_block_item(self, param):
+        # Implement the handler here
+        # use self.save_progress(...) to send progress messages back to the platform
+        self.save_progress("In action handler for: {0}".format(self.get_action_identifier()))
+
+        # Add an action result object to self (BaseConnector) to represent the action for this param
+        action_result = self.add_action_result(ActionResult(dict(param)))
+
+        # Get API token
+        token = self._get_token(param, action_result)
+
+        payload = {"type": param['type'], "properties": {"sha256": param["sha256"]}, "comment": param["comment"]}
+        headers = {"X-Tenant-ID": self._tenantID, "Authorization": "Bearer " + token}
+        # make rest call
+        ret_val, response = self._make_rest_call_new(
+            '/endpoint/v1/settings/blocked-items', action_result, method="post", headers=headers, json=payload
+        )
+
+        if phantom.is_fail(ret_val):
+            # the call to the 3rd party device or service failed, action result should contain all the error details
+            return action_result.get_status()
+
+        # Add the response into the data section
+        action_result.add_data(response)
+
+        # Add a dictionary that is made up of the most important values from data into the summary
+        summary = action_result.update_summary({})
+        summary['num_data'] = ret_val
+
+        # Return success, no need to set the message, only the status
+        # BaseConnector will create a textual message based off of the summary dictionary
+        return action_result.set_status(phantom.APP_SUCCESS)
+
+    def _handle_get_blocked_items(self, param):
+        # Implement the handler here
+        # use self.save_progress(...) to send progress messages back to the platform
+        self.save_progress("In action handler for: {0}".format(self.get_action_identifier()))
+
+        # Add an action result object to self (BaseConnector) to represent the action for this param
+        action_result = self.add_action_result(ActionResult(dict(param)))
+
+        # Get API token
+        token = self._get_token(param, action_result)
+
+        query = "/endpoint/v1/settings/blocked-items"
+        headers = {"X-Tenant-ID": self._tenantID, "Authorization": "Bearer " + token}
+        # make rest call
+        ret_val, response = self._make_rest_call_new(
+            query, action_result, headers=headers
+        )
+
+        if phantom.is_fail(ret_val):
+            # the call to the 3rd party device or service failed, action result should contain all the error details
+            return action_result.get_status()
+
+        # Add the response into the data section
+        action_result.add_data(response)
+
+        # Add a dictionary that is made up of the most important values from data into the summary
+        summary = action_result.update_summary({})
+        summary['num_data'] = ret_val
+
+        # Return success, no need to set the message, only the status
+        # BaseConnector will create a textual message based off of the summary dictionary
+        return action_result.set_status(phantom.APP_SUCCESS)
+
+    def _handle_get_allowed_items(self, param):
+        # Implement the handler here
+        # use self.save_progress(...) to send progress messages back to the platform
+        self.save_progress("In action handler for: {0}".format(self.get_action_identifier()))
+
+        # Add an action result object to self (BaseConnector) to represent the action for this param
+        action_result = self.add_action_result(ActionResult(dict(param)))
+
+        # Get API token
+        token = self._get_token(param, action_result)
+
+        query = "/endpoint/v1/settings/allowed-items"
+        headers = {"X-Tenant-ID": self._tenantID, "Authorization": "Bearer " + token}
+        # make rest call
+        ret_val, response = self._make_rest_call_new(
+            query, action_result, headers=headers
+        )
+
+        if phantom.is_fail(ret_val):
+            # the call to the 3rd party device or service failed, action result should contain all the error details
+            return action_result.get_status()
+
+        # Add the response into the data section
+        action_result.add_data(response)
+
+        # Add a dictionary that is made up of the most important values from data into the summary
+        summary = action_result.update_summary({})
+        summary['num_data'] = ret_val
+
+        # Return success, no need to set the message, only the status
+        # BaseConnector will create a textual message based off of the summary dictionary
+        return action_result.set_status(phantom.APP_SUCCESS)
+
+    def _handle_tamper_protection_settings(self, param):
+        # Implement the handler here
+        # use self.save_progress(...) to send progress messages back to the platform
+        self.save_progress("In action handler for: {0}".format(self.get_action_identifier()))
+
+        # Add an action result object to self (BaseConnector) to represent the action for this param
+        action_result = self.add_action_result(ActionResult(dict(param)))
+
+        # Get API token
+        token = self._get_token(param, action_result)
+
+        query = "/endpoint/v1/endpoints/" + param["endpointID"] + "/tamper-protection"
+        headers = {"X-Tenant-ID": self._tenantID, "Authorization": "Bearer " + token}
+        # make rest call
+        ret_val, response = self._make_rest_call_new(
+            query, action_result, headers=headers
+        )
+
+        if phantom.is_fail(ret_val):
+            # the call to the 3rd party device or service failed, action result should contain all the error details
+            return action_result.get_status()
+
+        # Add the response into the data section
+        action_result.add_data(response)
+
+        # Add a dictionary that is made up of the most important values from data into the summary
+        summary = action_result.update_summary({})
+        summary['num_data'] = ret_val
+
+        # Return success, no need to set the message, only the status
+        # BaseConnector will create a textual message based off of the summary dictionary
+        return action_result.set_status(phantom.APP_SUCCESS)
+
+    def _handle_getalerts_new(self, param):
+        # Implement the handler here
+        # use self.save_progress(...) to send progress messages back to the platform
+        self.save_progress("In action handler for: {0}".format(self.get_action_identifier()))
+
+        # Add an action result object to self (BaseConnector) to represent the action for this param
+        action_result = self.add_action_result(ActionResult(dict(param)))
+
+        # Get API token
+        token = self._get_token(param, action_result)
+
+        headers = {"X-Tenant-ID": self._tenantID, "Authorization": "Bearer " + token}
+        # make rest call
+        ret_val, response = self._make_rest_call_new(
+            '/common/v1/alerts', action_result, headers=headers
+        )
+
+        if phantom.is_fail(ret_val):
+            # the call to the 3rd party device or service failed, action result should contain all the error details
             return action_result.get_status()
 
         # Add the response into the data section
@@ -284,7 +488,6 @@ class SophosCentralConnector(BaseConnector):
 
         if phantom.is_fail(ret_val):
             # the call to the 3rd party device or service failed, action result should contain all the error details
-            # for now the return is commented out, but after implementation, return from here
             return action_result.get_status()
 
         # Add the response into the data section
@@ -306,12 +509,6 @@ class SophosCentralConnector(BaseConnector):
         # Add an action result object to self (BaseConnector) to represent the action for this param
         action_result = self.add_action_result(ActionResult(dict(param)))
 
-        # Access action parameters passed in the 'param' dictionary
-
-        # Required values can be accessed directly
-        # required_parameter = param['required_parameter']
-        # Optional values should use the .get() function
-        # optional_parameter = param.get('optional_parameter', 'default_value')
         headers = {"x-api-key": self._api_key, "Authorization": "Basic " + self._auth_key}
         params = {'from_date': int(param['date'])}
         # make rest call
@@ -321,7 +518,6 @@ class SophosCentralConnector(BaseConnector):
 
         if phantom.is_fail(ret_val):
             # the call to the 3rd party device or service failed, action result should contain all the error details
-            # for now the return is commented out, but after implementation, return from here
             return action_result.get_status()
 
         # Now post process the data,  uncomment code as you deem fit
@@ -345,12 +541,6 @@ class SophosCentralConnector(BaseConnector):
         # Add an action result object to self (BaseConnector) to represent the action for this param
         action_result = self.add_action_result(ActionResult(dict(param)))
 
-        # Access action parameters passed in the 'param' dictionary
-
-        # Required values can be accessed directly
-        # required_parameter = param['required_parameter']
-        # Optional values should use the .get() function
-        # optional_parameter = param.get('optional_parameter', 'default_value')
         headers = {"x-api-key": self._api_key, "Authorization": "Basic " + self._auth_key}
         self.save_progress(json.dumps(param))
         params = {}
@@ -371,10 +561,7 @@ class SophosCentralConnector(BaseConnector):
 
         if phantom.is_fail(ret_val):
             # the call to the 3rd party device or service failed, action result should contain all the error details
-            # for now the return is commented out, but after implementation, return from here
             return action_result.get_status()
-
-        # Now post process the data,  uncomment code as you deem fit
 
         # Add the response into the data section
         action_result.add_data(response)
@@ -409,6 +596,24 @@ class SophosCentralConnector(BaseConnector):
 
         elif action_id == 'list_endpoints':
             ret_val = self._handle_list_endpoints(param)
+
+        elif action_id == 'getalerts_new':
+            ret_val = self._handle_getalerts_new(param)
+
+        elif action_id == 'tamper_protection_settings':
+            ret_val = self._handle_tamper_protection_settings(param)
+
+        elif action_id == 'get_allowed_items':
+            ret_val = self._handle_get_allowed_items(param)
+
+        elif action_id == 'get_blocked_items':
+            ret_val = self._handle_get_blocked_items(param)
+
+        elif action_id == 'block_item':
+            ret_val = self._handle_block_item(param)
+
+        elif action_id == 'describe_alert':
+            ret_val = self._handle_describe_alert(param)
 
         return ret_val
 

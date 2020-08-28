@@ -177,6 +177,261 @@
             "versions": "EQ(*)"
         },
         {
+            "action": "describe_alert",
+            "identifier": "describe_alert",
+            "description": "Get specific alert details.",
+            "verbose": "",
+            "type": "generic",
+            "read_only": false,
+            "parameters": {
+                "alert_id": {
+                    "description": "ID of the alert to descibe",
+                    "data_type": "string",
+                    "required": true,
+                    "primary": true,
+                    "contains": [],
+                    "value_list": [],
+                    "default": "",
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.parameter.alert_id",
+                    "data_type": "string",
+                    "contains": [],
+                    "column_name": "alert_id",
+                    "column_order": 2
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "column_name": "status",
+                    "column_order": 0
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric"
+                }
+            ],
+            "render": {
+                "type": "table"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "block_item",
+            "identifier": "block_item",
+            "description": "Block an item.",
+            "verbose": "Block an item.",
+            "type": "generic",
+            "read_only": false,
+            "parameters": {
+                "comment": {
+                    "description": "comment",
+                    "data_type": "string",
+                    "required": true,
+                    "primary": true,
+                    "contains": [],
+                    "value_list": [],
+                    "default": "",
+                    "order": 0
+                },
+                "type": {
+                    "description": "Type.",
+                    "data_type": "string",
+                    "required": true,
+                    "primary": true,
+                    "contains": [],
+                    "value_list": [],
+                    "default": "sha256",
+                    "order": 0
+                },
+                "sha256": {
+                    "description": "sha256 of the application.",
+                    "data_type": "string",
+                    "required": true,
+                    "primary": true,
+                    "contains": [],
+                    "value_list": [],
+                    "default": "",
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.parameter.comment",
+                    "data_type": "string",
+                    "contains": [],
+                    "column_name": "comment",
+                    "column_order": 2
+                },
+                {
+                    "data_path": "action_result.parameter.type",
+                    "data_type": "string",
+                    "contains": [],
+                    "column_name": "type",
+                    "column_order": 2
+                },
+                {
+                    "data_path": "action_result.parameter.sha256",
+                    "data_type": "string",
+                    "contains": [],
+                    "column_name": "sha256",
+                    "column_order": 2
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "column_name": "status",
+                    "column_order": 0
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric"
+                }
+            ],
+            "render": {
+                "type": "table"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "get_blocked_items",
+            "identifier": "get_blocked_items",
+            "description": "Get blocked items.",
+            "verbose": "",
+            "type": "generic",
+            "read_only": false,
+            "parameters": {
+            },
+            "output": [
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "column_name": "status",
+                    "column_order": 0
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric"
+                }
+            ],
+            "render": {
+                "type": "table"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "get_allowed_items",
+            "identifier": "get_allowed_items",
+            "description": "Get allowed items.",
+            "verbose": "",
+            "type": "generic",
+            "read_only": false,
+            "parameters": {
+            },
+            "output": [
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "column_name": "status",
+                    "column_order": 0
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric"
+                }
+            ],
+            "render": {
+                "type": "table"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "tamper_protection_settings",
+            "identifier": "tamper_protection_settings",
+            "description": "Get tamper protection settigns of a specific endpoint.",
+            "verbose": "",
+            "type": "generic",
+            "read_only": false,
+            "parameters": {
+                "endpointID": {
+                    "description": "Endpoint ID.",
+                    "data_type": "string",
+                    "required": true,
+                    "primary": true,
+                    "contains": [],
+                    "value_list": [],
+                    "default": "",
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.parameter.endpointID",
+                    "data_type": "string",
+                    "contains": [],
+                    "column_name": "endpointID",
+                    "column_order": 2
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "column_name": "status",
+                    "column_order": 0
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric"
+                }
+            ],
+            "render": {
+                "type": "table"
+            },
+            "versions": "EQ(*)"
+        },
+        {
             "action": "list_endpoints",
             "identifier": "list_endpoints",
             "description": "List all endpoints in your tenant.",
@@ -184,8 +439,59 @@
             "type": "generic",
             "read_only": false,
             "parameters": {
+                "healthStatus": {
+                    "description": "Allowed values are bad, good, suspicious and unknown.",
+                    "data_type": "string",
+                    "required": false,
+                    "primary": true,
+                    "contains": [],
+                    "value_list": ["bad","good","suspicious","unknown"],
+                    "default": "",
+                    "order": 0
+                },
+                "type": {
+                    "description": "Type of devices to return. Allowed values are computer, server and securityVm.",
+                    "data_type": "string",
+                    "required": false,
+                    "primary": true,
+                    "contains": [],
+                    "value_list": ["computer", "server","securityVm"],
+                    "default": "",
+                    "order": 0
+                },
+                "view": {
+                    "description": "Type of view to return. Basic, summary and full.",
+                    "data_type": "string",
+                    "required": false,
+                    "primary": true,
+                    "contains": [],
+                    "value_list": ["basic", "summary","full"],
+                    "default": "",
+                    "order": 0
+                }
             },
             "output": [
+                {
+                    "data_path": "action_result.parameter.healthStatus",
+                    "data_type": "string",
+                    "contains": [],
+                    "column_name": "healthStatus",
+                    "column_order": 2
+                },
+                {
+                    "data_path": "action_result.parameter.type",
+                    "data_type": "string",
+                    "contains": [],
+                    "column_name": "type",
+                    "column_order": 2
+                },
+                {
+                    "data_path": "action_result.parameter.view",
+                    "data_type": "string",
+                    "contains": [],
+                    "column_name": "view",
+                    "column_order": 2
+                },
                 {
                     "data_path": "action_result.status",
                     "data_type": "string",
@@ -277,6 +583,39 @@
                 "height": 10,
                 "view": "alert_view.display_alerts",
                 "title": "Display events"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "getalerts_new",
+            "identifier": "getalerts_new",
+            "description": "Get alerts from Sophos Central REST API.",
+            "verbose": "Get alerts from REST API.",
+            "type": "generic",
+            "read_only": false,
+            "parameters": {},
+            "output": [
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "column_name": "status",
+                    "column_order": 0
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric"
+                }
+            ],
+            "render": {
+                "type": "table"
             },
             "versions": "EQ(*)"
         }

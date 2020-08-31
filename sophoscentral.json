@@ -245,6 +245,312 @@
             "versions": "EQ(*)"
         },
         {
+            "action": "allow_item",
+            "identifier": "allow_item",
+            "description": "Exempt an item from conviction.",
+            "verbose": "",
+            "type": "generic",
+            "read_only": false,
+            "parameters": {
+                "comment": {
+                    "description": "Comment.",
+                    "data_type": "string",
+                    "required": true,
+                    "primary": true,
+                    "contains": [],
+                    "value_list": [],
+                    "default": "",
+                    "order": 0
+                },
+                "originEndpointId": {
+                    "description": "The endpoint where the item to be allowed was last seen.",
+                    "data_type": "string",
+                    "required": false,
+                    "primary": true,
+                    "contains": [],
+                    "value_list": [],
+                    "default": "",
+                    "order": 1
+                },
+                "originPersonId": {
+                    "description": "The person associated with the endpoint where the item to be allowed was last seen.",
+                    "data_type": "string",
+                    "required": false,
+                    "primary": true,
+                    "contains": [],
+                    "value_list": [],
+                    "default": "",
+                    "order": 2
+                },
+                "type": {
+                    "description": "Property by which an item is allowed.",
+                    "data_type": "string",
+                    "required": true,
+                    "primary": true,
+                    "contains": [],
+                    "value_list": ["path", "sha256"],
+                    "default": "",
+                    "order": 3
+                },
+                "fileName": {
+                    "description": "Name of the file.",
+                    "data_type": "string",
+                    "required": true,
+                    "primary": true,
+                    "contains": [],
+                    "value_list": [],
+                    "default": "",
+                    "order": 4
+                },
+                "path": {
+                    "description": "Path for the application.",
+                    "data_type": "string",
+                    "required": true,
+                    "primary": true,
+                    "contains": [],
+                    "value_list": [],
+                    "default": "",
+                    "order": 5
+                },
+                "sha256": {
+                    "description": "Sha256 value for the application.",
+                    "data_type": "string",
+                    "required": true,
+                    "primary": true,
+                    "contains": [],
+                    "value_list": [],
+                    "default": "",
+                    "order": 6
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.parameter.comment",
+                    "data_type": "string",
+                    "contains": [],
+                    "column_name": "comment",
+                    "column_order": 2
+                },
+                {
+                    "data_path": "action_result.parameter.originEndpointId",
+                    "data_type": "string",
+                    "contains": [],
+                    "column_name": "originEndpointId",
+                    "column_order": 2
+                },
+                {
+                    "data_path": "action_result.parameter.originPersonId",
+                    "data_type": "string",
+                    "contains": [],
+                    "column_name": "originPersonId",
+                    "column_order": 2
+                },
+                {
+                    "data_path": "action_result.parameter.type",
+                    "data_type": "string",
+                    "contains": [],
+                    "column_name": "type",
+                    "column_order": 2
+                },
+                {
+                    "data_path": "action_result.parameter.fileName",
+                    "data_type": "string",
+                    "contains": [],
+                    "column_name": "fileName",
+                    "column_order": 2
+                },
+                {
+                    "data_path": "action_result.parameter.path",
+                    "data_type": "string",
+                    "contains": [],
+                    "column_name": "path",
+                    "column_order": 2
+                },
+                {
+                    "data_path": "action_result.parameter.sha256",
+                    "data_type": "string",
+                    "contains": [],
+                    "column_name": "sha256",
+                    "column_order": 2
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "column_name": "status",
+                    "column_order": 0
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric"
+                }
+            ],
+            "render": {
+                "type": "table"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "delete_user",
+            "identifier": "delete_user",
+            "description": "Delete a specific user.",
+            "verbose": "",
+            "type": "generic",
+            "read_only": false,
+            "parameters": {
+                "user_id": {
+                    "description": "User ID.",
+                    "data_type": "string",
+                    "required": true,
+                    "primary": true,
+                    "contains": [],
+                    "value_list": [],
+                    "default": "",
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.parameter.user_id",
+                    "data_type": "string",
+                    "contains": [],
+                    "column_name": "user_id",
+                    "column_order": 2
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "column_name": "status",
+                    "column_order": 0
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric"
+                }
+            ],
+            "render": {
+                "type": "table"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "delete_blocked_item",
+            "identifier": "delete_blocked_item",
+            "description": "Delete a specific blocked item.",
+            "verbose": "",
+            "type": "generic",
+            "read_only": false,
+            "parameters": {
+                "item_id": {
+                    "description": "Blocked item ID.",
+                    "data_type": "string",
+                    "required": true,
+                    "primary": true,
+                    "contains": [],
+                    "value_list": [],
+                    "default": "",
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.parameter.item_id",
+                    "data_type": "string",
+                    "contains": [],
+                    "column_name": "item_id",
+                    "column_order": 2
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "column_name": "status",
+                    "column_order": 0
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric"
+                }
+            ],
+            "render": {
+                "type": "table"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "request_scan",
+            "identifier": "request_scan",
+            "description": "Request a scan on an endpoint.",
+            "verbose": "",
+            "type": "generic",
+            "read_only": false,
+            "parameters": {
+                "endpoint_id": {
+                    "description": "Endpoint to scan.",
+                    "data_type": "string",
+                    "required": true,
+                    "primary": true,
+                    "contains": [],
+                    "value_list": [],
+                    "default": "",
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.parameter.endpoint_id",
+                    "data_type": "string",
+                    "contains": [],
+                    "column_name": "endpoint_id",
+                    "column_order": 2
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "column_name": "status",
+                    "column_order": 0
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric"
+                }
+            ],
+            "render": {
+                "type": "table"
+            },
+            "versions": "EQ(*)"
+        },
+        {
             "action": "describe_alert",
             "identifier": "describe_alert",
             "description": "Get specific alert details.",

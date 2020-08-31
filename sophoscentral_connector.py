@@ -305,6 +305,38 @@ class SophosCentralConnector(BaseConnector):
         # BaseConnector will create a textual message based off of the summary dictionary
         return action_result.set_status(phantom.APP_SUCCESS)
 
+    def _handle_delete_user(self, param):
+        # Implement the handler here
+        # use self.save_progress(...) to send progress messages back to the platform
+        self.save_progress("In action handler for: {0}".format(self.get_action_identifier()))
+
+        # Add an action result object to self (BaseConnector) to represent the action for this param
+        action_result = self.add_action_result(ActionResult(dict(param)))
+
+        # Get API token
+        token = self._get_token(param, action_result)
+        ep = "/common/v1/directory/users/" + param["user_id"]
+        headers = {"X-Tenant-ID": self._tenantID, "Authorization": "Bearer " + token}
+        # make rest call
+        ret_val, response = self._make_rest_call_new(
+            ep, action_result, method="delete", headers=headers
+        )
+
+        if phantom.is_fail(ret_val):
+            # the call to the 3rd party device or service failed, action result should contain all the error details
+            return action_result.get_status()
+
+        # Add the response into the data section
+        action_result.add_data(response)
+
+        # Add a dictionary that is made up of the most important values from data into the summary
+        summary = action_result.update_summary({})
+        summary['num_data'] = ret_val
+
+        # Return success, no need to set the message, only the status
+        # BaseConnector will create a textual message based off of the summary dictionary
+        return action_result.set_status(phantom.APP_SUCCESS)
+
     def _handle_block_item(self, param):
         # Implement the handler here
         # use self.save_progress(...) to send progress messages back to the platform
@@ -420,6 +452,119 @@ class SophosCentralConnector(BaseConnector):
         # make rest call
         ret_val, response = self._make_rest_call_new(
             query, action_result, headers=headers
+        )
+
+        if phantom.is_fail(ret_val):
+            # the call to the 3rd party device or service failed, action result should contain all the error details
+            return action_result.get_status()
+
+        # Add the response into the data section
+        action_result.add_data(response)
+
+        # Add a dictionary that is made up of the most important values from data into the summary
+        summary = action_result.update_summary({})
+        summary['num_data'] = ret_val
+
+        # Return success, no need to set the message, only the status
+        # BaseConnector will create a textual message based off of the summary dictionary
+        return action_result.set_status(phantom.APP_SUCCESS)
+
+    def _handle_delete_blocked_item(self, param):
+        # Implement the handler here
+        # use self.save_progress(...) to send progress messages back to the platform
+        self.save_progress("In action handler for: {0}".format(self.get_action_identifier()))
+
+        # Add an action result object to self (BaseConnector) to represent the action for this param
+        action_result = self.add_action_result(ActionResult(dict(param)))
+
+        # Get API token
+        token = self._get_token(param, action_result)
+
+        query = "/endpoint/v1/settings/blocked-items/" + param['item_id']
+        headers = {"X-Tenant-ID": self._tenantID, "Authorization": "Bearer " + token}
+        # make rest call
+        ret_val, response = self._make_rest_call_new(
+            query, action_result, method="delete", headers=headers
+        )
+
+        if phantom.is_fail(ret_val):
+            # the call to the 3rd party device or service failed, action result should contain all the error details
+            return action_result.get_status()
+
+        # Add the response into the data section
+        action_result.add_data(response)
+
+        # Add a dictionary that is made up of the most important values from data into the summary
+        summary = action_result.update_summary({})
+        summary['num_data'] = ret_val
+
+        # Return success, no need to set the message, only the status
+        # BaseConnector will create a textual message based off of the summary dictionary
+        return action_result.set_status(phantom.APP_SUCCESS)
+
+    def _handle_request_scan(self, param):
+        # Implement the handler here
+        # use self.save_progress(...) to send progress messages back to the platform
+        self.save_progress("In action handler for: {0}".format(self.get_action_identifier()))
+
+        # Add an action result object to self (BaseConnector) to represent the action for this param
+        action_result = self.add_action_result(ActionResult(dict(param)))
+
+        # Get API token
+        token = self._get_token(param, action_result)
+
+        query = "/endpoint/v1/endpoints/" + param['endpoint_id'] + '/scans'
+        headers = {"X-Tenant-ID": self._tenantID, "Authorization": "Bearer " + token}
+        # make rest call
+        ret_val, response = self._make_rest_call_new(
+            query, action_result, method="post", headers=headers, json={}
+        )
+
+        if phantom.is_fail(ret_val):
+            # the call to the 3rd party device or service failed, action result should contain all the error details
+            return action_result.get_status()
+
+        # Add the response into the data section
+        action_result.add_data(response)
+
+        # Add a dictionary that is made up of the most important values from data into the summary
+        summary = action_result.update_summary({})
+        summary['num_data'] = ret_val
+
+        # Return success, no need to set the message, only the status
+        # BaseConnector will create a textual message based off of the summary dictionary
+        return action_result.set_status(phantom.APP_SUCCESS)
+
+    def _handle_allow_item(self, param):
+        # Implement the handler here
+        # use self.save_progress(...) to send progress messages back to the platform
+        self.save_progress("In action handler for: {0}".format(self.get_action_identifier()))
+
+        # Add an action result object to self (BaseConnector) to represent the action for this param
+        action_result = self.add_action_result(ActionResult(dict(param)))
+
+        # Get API token
+        token = self._get_token(param, action_result)
+
+        query = "/endpoint/v1/settings/allowed-items"
+        headers = {"X-Tenant-ID": self._tenantID, "Authorization": "Bearer " + token}
+        # Preparing query data
+        prop = {
+            "fileName": param["fileName"],
+            "path": param["path"],
+            "sha256": param["sha256"]
+        }
+        payload = {}
+        payload["comment"] = param["comment"]
+        payload["type"] = param["type"]
+        if "originEndpointId" in param:
+            payload["originEndpointId"] = param["originEndpointId"]
+        if "originPersonId" in param:
+            payload["originPersonId"] = param["originPersonId"]
+        payload["properties"] = prop
+        # make rest call
+        ret_val, response = self._make_rest_call_new(
+            query, action_result, method="post", headers=headers, json=payload
         )
 
         if phantom.is_fail(ret_val):
@@ -723,6 +868,18 @@ class SophosCentralConnector(BaseConnector):
 
         elif action_id == 'list_users':
             ret_val = self._handle_list_users(param)
+
+        elif action_id == 'request_scan':
+            ret_val = self._handle_request_scan(param)
+
+        elif action_id == 'delete_blocked_item':
+            ret_val = self._handle_delete_blocked_item(param)
+
+        elif action_id == 'allow_item':
+            ret_val = self._handle_allow_item(param)
+
+        elif action_id == 'delete_user':
+            ret_val = self._handle_delete_user(param)
 
         return ret_val
 

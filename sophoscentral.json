@@ -398,6 +398,194 @@
             "versions": "EQ(*)"
         },
         {
+            "action": "list_local_sites",
+            "identifier": "list_local_sites",
+            "description": "List added local sites.",
+            "verbose": "",
+            "type": "generic",
+            "read_only": false,
+            "parameters": {
+            },
+            "output": [
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "column_name": "status",
+                    "column_order": 0
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric"
+                }
+            ],
+            "render": {
+                "type": "table"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "delete_local_site",
+            "identifier": "delete_local_site",
+            "description": "Deletes a local website.",
+            "verbose": "",
+            "type": "generic",
+            "read_only": false,
+            "parameters": {
+                "siteID": {
+                    "description": "Site ID.",
+                    "data_type": "string",
+                    "required": true,
+                    "primary": true,
+                    "contains": [],
+                    "value_list": [],
+                    "default": "",
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.parameter.siteID",
+                    "data_type": "string",
+                    "contains": [],
+                    "column_name": "siteID",
+                    "column_order": 2
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "column_name": "status",
+                    "column_order": 0
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric"
+                }
+            ],
+            "render": {
+                "type": "table"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "add_local_site",
+            "identifier": "add_local_site",
+            "description": "Adds a local website.",
+            "verbose": "",
+            "type": "generic",
+            "read_only": false,
+            "parameters": {
+                "url": {
+                    "description": "URL of the site.",
+                    "data_type": "string",
+                    "required": true,
+                    "primary": true,
+                    "contains": [],
+                    "value_list": [],
+                    "default": "",
+                    "order": 0
+                },
+                "comment": {
+                    "description": "Comment.",
+                    "data_type": "string",
+                    "required": true,
+                    "primary": true,
+                    "contains": [],
+                    "value_list": [],
+                    "default": "",
+                    "order": 0
+                },
+                "tag": {
+                    "description": "Tag. If more tags are needed add them on Sophos Central.",
+                    "data_type": "string",
+                    "required": true,
+                    "primary": true,
+                    "contains": [],
+                    "value_list": [],
+                    "default": "",
+                    "order": 0
+                },
+                "categoryId": {
+                    "description": "Category ID.",
+                    "data_type": "numeric",
+                    "required": true,
+                    "primary": true,
+                    "contains": [],
+                    "value_list": [],
+                    "default": "",
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.parameter.url",
+                    "data_type": "string",
+                    "contains": [],
+                    "column_name": "url",
+                    "column_order": 2
+                },
+                {
+                    "data_path": "action_result.parameter.comment",
+                    "data_type": "string",
+                    "contains": [],
+                    "column_name": "comment",
+                    "column_order": 2
+                },
+                {
+                    "data_path": "action_result.parameter.tag",
+                    "data_type": "string",
+                    "contains": [],
+                    "column_name": "tag",
+                    "column_order": 2
+                },
+                {
+                
+                    "data_path": "action_result.parameter.categoryId",
+                    "data_type": "string",
+                    "contains": [],
+                    "column_name": "categoryId",
+                    "column_order": 2
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "column_name": "status",
+                    "column_order": 0
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric"
+                }
+            ],
+            "render": {
+                "type": "table"
+            },
+            "versions": "EQ(*)"
+        },
+        {
             "action": "delete_user",
             "identifier": "delete_user",
             "description": "Delete a specific user.",

@@ -432,6 +432,40 @@
             "versions": "EQ(*)"
         },
         {
+            "action": "tamper_protection_globally",
+            "identifier": "tamper_protection_globally",
+            "description": "Check if tamper protection is enabled globally.",
+            "verbose": "",
+            "type": "generic",
+            "read_only": false,
+            "parameters": {
+            },
+            "output": [
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "column_name": "status",
+                    "column_order": 0
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric"
+                }
+            ],
+            "render": {
+                "type": "table"
+            },
+            "versions": "EQ(*)"
+        },
+        {
             "action": "delete_local_site",
             "identifier": "delete_local_site",
             "description": "Deletes a local website.",
@@ -955,7 +989,11 @@
                 }
             ],
             "render": {
-                "type": "table"
+                "type": "custom",
+                "width": 20,
+                "height": 10,
+                "view": "blockedIt_view.display_blockedIt",
+                "title": "Display blocked items"
             },
             "versions": "EQ(*)"
         },
@@ -989,7 +1027,11 @@
                 }
             ],
             "render": {
-                "type": "table"
+                "type": "custom",
+                "width": 20,
+                "height": 10,
+                "view": "blockedItems_view.display_blockedItems",
+                "title": "Display blocked items"
             },
             "versions": "EQ(*)"
         },
@@ -1023,7 +1065,11 @@
                 }
             ],
             "render": {
-                "type": "table"
+                "type": "custom",
+                "width": 20,
+                "height": 10,
+                "view": "allowedItems_view.display_allowedItems",
+                "title": "Display allowed items"
             },
             "versions": "EQ(*)"
         },

@@ -904,7 +904,11 @@
                 }
             ],
             "render": {
-                "type": "table"
+                "type": "custom",
+                "width": 20,
+                "height": 10,
+                "view": "action_view.display_action",
+                "title": "Display blocked items"
             },
             "versions": "EQ(*)"
         },
@@ -1032,6 +1036,44 @@
                 "height": 10,
                 "view": "blockedItems_view.display_blockedItems",
                 "title": "Display blocked items"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "get_web_categories",
+            "identifier": "get_web_categories",
+            "description": "Get web control categories.",
+            "verbose": "",
+            "type": "generic",
+            "read_only": false,
+            "parameters": {
+            },
+            "output": [
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "column_name": "status",
+                    "column_order": 0
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric"
+                }
+            ],
+            "render": {
+                "type": "custom",
+                "width": 20,
+                "height": 10,
+                "view": "categories_view.display_categories",
+                "title": "Display web control categories."
             },
             "versions": "EQ(*)"
         },

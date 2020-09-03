@@ -169,8 +169,8 @@
             ],
             "render": {
                 "type": "custom",
-                "width": 20,
-                "height": 10,
+                "width": 10,
+                "height": 5,
                 "view": "event_view.display_events",
                 "title": "Display events"
             },
@@ -461,7 +461,11 @@
                 }
             ],
             "render": {
-                "type": "table"
+                "type": "custom",
+                "width": 10,
+                "height": 5,
+                "view": "tpg_view.display_tpg",
+                "title": "Is tamper protection enabled globally."
             },
             "versions": "EQ(*)"
         },
@@ -512,7 +516,11 @@
                 }
             ],
             "render": {
-                "type": "table"
+                "type": "custom",
+                "width": 10,
+                "height": 5,
+                "view": "dls_view.display_dls",
+                "title": "Deleted local site."
             },
             "versions": "EQ(*)"
         },
@@ -615,7 +623,11 @@
                 }
             ],
             "render": {
-                "type": "table"
+                "type": "custom",
+                "width": 10,
+                "height": 5,
+                "view": "als_view.display_als",
+                "title": "Added local site."
             },
             "versions": "EQ(*)"
         },
@@ -666,7 +678,11 @@
                 }
             ],
             "render": {
-                "type": "table"
+                "type": "custom",
+                "width": 10,
+                "height": 5,
+                "view": "du_view.display_du",
+                "title": "Display deleted user"
             },
             "versions": "EQ(*)"
         },
@@ -717,7 +733,11 @@
                 }
             ],
             "render": {
-                "type": "table"
+                "type": "custom",
+                "width": 10,
+                "height": 5,
+                "view": "dbi_view.display_dbi",
+                "title": "Display blocked items"
             },
             "versions": "EQ(*)"
         },
@@ -768,7 +788,11 @@
                 }
             ],
             "render": {
-                "type": "table"
+                "type": "custom",
+                "width": 10,
+                "height": 5,
+                "view": "scan_view.display_scan",
+                "title": "Requested scan"
             },
             "versions": "EQ(*)"
         },
@@ -819,7 +843,11 @@
                 }
             ],
             "render": {
-                "type": "table"
+                "type": "custom",
+                "width": 10,
+                "height": 5,
+                "view": "da_view.display_da",
+                "title": "Added local site."
             },
             "versions": "EQ(*)"
         },
@@ -905,8 +933,8 @@
             ],
             "render": {
                 "type": "custom",
-                "width": 20,
-                "height": 10,
+                "width": 10,
+                "height": 5,
                 "view": "action_view.display_action",
                 "title": "Display blocked items"
             },
@@ -994,8 +1022,8 @@
             ],
             "render": {
                 "type": "custom",
-                "width": 20,
-                "height": 10,
+                "width": 10,
+                "height": 5,
                 "view": "blockedIt_view.display_blockedIt",
                 "title": "Display blocked items"
             },
@@ -1032,8 +1060,8 @@
             ],
             "render": {
                 "type": "custom",
-                "width": 20,
-                "height": 10,
+                "width": 10,
+                "height": 5,
                 "view": "blockedItems_view.display_blockedItems",
                 "title": "Display blocked items"
             },
@@ -1070,8 +1098,8 @@
             ],
             "render": {
                 "type": "custom",
-                "width": 20,
-                "height": 10,
+                "width": 10,
+                "height": 5,
                 "view": "categories_view.display_categories",
                 "title": "Display web control categories."
             },
@@ -1108,8 +1136,8 @@
             ],
             "render": {
                 "type": "custom",
-                "width": 20,
-                "height": 10,
+                "width": 10,
+                "height": 5,
                 "view": "allowedItems_view.display_allowedItems",
                 "title": "Display allowed items"
             },
@@ -1314,8 +1342,8 @@
             ],
             "render": {
                 "type": "custom",
-                "width": 20,
-                "height": 10,
+                "width": 10,
+                "height": 5,
                 "view": "alert_view.display_alerts",
                 "title": "Display events"
             },

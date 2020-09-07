@@ -206,7 +206,11 @@
                 }
             ],
             "render": {
-                "type": "table"
+                "type": "custom",
+                "width": 10,
+                "height": 5,
+                "view": "lu_view.display_lu",
+                "title": "List users."
             },
             "versions": "EQ(*)"
         },
@@ -240,7 +244,11 @@
                 }
             ],
             "render": {
-                "type": "table"
+                "type": "custom",
+                "width": 10,
+                "height": 5,
+                "view": "lug_view.display_lug",
+                "title": "List user groups."
             },
             "versions": "EQ(*)"
         },
@@ -393,7 +401,11 @@
                 }
             ],
             "render": {
-                "type": "table"
+                "type": "custom",
+                "width": 10,
+                "height": 5,
+                "view": "ai_view.display_ai",
+                "title": "Display allowed item."
             },
             "versions": "EQ(*)"
         },
@@ -427,7 +439,11 @@
                 }
             ],
             "render": {
-                "type": "table"
+                "type": "custom",
+                "width": 10,
+                "height": 5,
+                "view": "lls_view.display_lls",
+                "title": "List local sites."
             },
             "versions": "EQ(*)"
         },

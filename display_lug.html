@@ -1,0 +1,63 @@
+{% extends 'widgets/widget_template.html' %}
+{% load custom_template %}
+​
+{% block custom_title_prop %}{{ "BLA" }}{% if title_logo %}style="background-size: auto 60%; background-position: 50%; background-repeat: no-repeat; background-image: url('/app_resource/{{ title_logo }}');"{% endif %}{% endblock %}
+{% block title1 %}{{ title1 }}{% endblock %}
+{% block title2 %}{{ title2 }}{% endblock %}
+{% block custom_tools %}
+{% endblock %}
+​
+{% block widget_content %} <!-- Main Start Block -->
+​
+<!-- File: display_events.html
+-->
+​
+<div  style="overflow: auto; width: 100%; height: 100%; padding-left:10px; padding-right:10px"> <!-- Main Div -->
+  {% for result in results %} <!-- loop for each result -->
+<br>
+     {% for data  in result.data.items %}
+       <p style="font-size:15px;color: white"> User group </p>
+       <table>
+       {% for key, dt in data.items %}
+       {% if dt|stringformat:"s"|length != 0 %}
+           {% if key == "users" %}
+		    <tr> 
+           	    <td style="border: 1px solid white;padding:4px">{{ key }} </td><td style="border: 1px solid white;padding:4px"> 
+		     {% for d in dt.items %}
+			  id: {{ d.id }}, name: {{ d.name }}
+                        <br>
+                      {% endfor %}
+		     </td>
+       		    </tr>
+	   {% else %}
+		{% if key == "source" or key == "tenant" %}
+			{% for kl, po in dt.items %}
+       		 		<tr> 
+           			<td style="border: 1px solid white;padding:4px">{{ key }} </td><td style="border: 1px solid white;padding:4px">{{ kl }}: {{ po }} </td>
+        			</tr>
+			{% endfor %}
+		{% else %}
+       		 	<tr> 
+           		<td style="border: 1px solid white;padding:4px">{{ key }} </td><td style="border: 1px solid white;padding:4px"> {{ dt }} </td>
+        		</tr>
+		{% endif %}
+           {% endif %}
+       {% endif %}
+       {% endfor %}
+       </table>
+       <br>
+     {% endfor %}
+
+<!------------------- For each Result ---------------------->
+​
+​
+<br>
+​
+​
+​
+<!------------------- For each Result END ---------------------->
+​
+{% endfor %} <!-- loop for each result end -->
+</div> <!-- Main Div -->
+​
+{% endblock %} <!-- Main Start Block -->
